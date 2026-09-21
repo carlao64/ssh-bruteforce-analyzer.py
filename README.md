@@ -35,7 +35,7 @@ Utiliza `pathlib` para trabalhar com caminhos de arquivos, evitando dependência
 
 O projeto utiliza apenas bibliotecas nativas do Python, sem necessidade de instalação de pacotes externos.
 
-* **Python 3**
+* **Bibliotecas**
 * `re` — Expressões Regulares
 * `collections.Counter` — Contagem e classificação dos eventos
 * `pathlib` — Manipulação de caminhos e arquivos
