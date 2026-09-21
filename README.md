@@ -1,28 +1,93 @@
-Analisador de Logs SSHD
-Script em Python para analisar logs de autenticação do SSH e identificar tentativas de invasão ou ataques de força bruta.
+# Analisador de Logs SSHD
 
-A ideia do projeto é automatizar a leitura do arquivo auth.log, filtrar os acessos que falharam e gerar um resumo dos IPs mais problemáticos, seja no terminal ou exportado em arquivo.
+Script em Python para analisar logs de autenticação do **SSH (SSHD)** e identificar possíveis tentativas de invasão, incluindo ataques de **força bruta (Brute Force)**.
 
-O que o projeto faz
-Filtra falhas de login: Usa Regex para localizar linhas com Failed password e extrair os endereços IP.
+O projeto automatiza a leitura do arquivo `auth.log`, filtra tentativas de autenticação que falharam e gera um resumo dos endereços IP com maior número de falhas.
 
-Conta e rankeia: Usa collections.Counter para somar o total de falhas e listar os maiores ofensores.
+## O que o projeto faz
 
-Menu no terminal: Mostra o resultado de forma limpa e pergunta se você quer salvar um relatório.
+### Filtra falhas de login
 
-Exportação flexível: Salva o relatório formatado em .txt ou em .csv para abrir em planilhas.
+Utiliza **Regex (`re`)** para localizar linhas contendo `Failed password` e extrair os endereços IP associados às tentativas de autenticação malsucedidas.
 
-Multiplataforma: Feito com pathlib, funciona no Windows, Linux ou macOS sem quebrar caminhos de pasta.
+### Conta e classifica os IPs
 
-Tecnologias e Módulos
-Projetado usando apenas bibliotecas nativas do Python (sem necessidade de instalar pacotes externos):
+Utiliza `collections.Counter` para contabilizar o número de falhas por endereço IP e identificar quais IPs apresentaram mais tentativas de autenticação malsucedidas.
 
-Python 3
+### Menu no terminal
 
-re (Expressões Regulares)
+Apresenta os resultados no terminal de forma organizada e permite escolher se o relatório será salvo em arquivo.
 
-collections.Counter
+### Exportação de relatórios
 
-pathlib
+Permite exportar os resultados em:
 
-csv O projeto tem como objetivo automatizar a identificação de possíveis ataques de força bruta (Brute Force) e acessos não autorizados através do processamento de arquivos de log no formato auth.log.
+* `.txt`
+* `.csv`
+
+O formato CSV pode ser utilizado posteriormente em ferramentas de planilhas ou outras ferramentas de análise.
+
+### Multiplataforma
+
+Utiliza `pathlib` para trabalhar com caminhos de arquivos, evitando dependência de caminhos específicos do sistema operacional.
+
+## Tecnologias e módulos
+
+O projeto utiliza apenas bibliotecas nativas do Python, sem necessidade de instalação de pacotes externos.
+
+* **Python 3**
+* `re` — Expressões Regulares
+* `collections.Counter` — Contagem e classificação dos eventos
+* `pathlib` — Manipulação de caminhos e arquivos
+* `csv` — Exportação dos resultados
+
+## Objetivo
+
+O objetivo do projeto é automatizar uma tarefa básica de análise de segurança: processar arquivos de log de autenticação e identificar padrões de tentativas malsucedidas de acesso ao SSH.
+
+A quantidade elevada de falhas originadas de um mesmo IP pode indicar uma possível tentativa de **Brute Force**, embora o resultado do script, por si só, não confirme que um ataque ocorreu.
+
+## Estrutura do projeto
+
+```text
+log-analyzer/
+│
+├── src/
+│   └── analyzer.py
+│
+├── logs/
+│   └── auth.log
+│
+├── reports/
+│   └── report.txt
+│
+├── README.md
+
+```
+
+## Como executar
+
+Com o Python 3 instalado:
+
+```bash
+python src/analyzer.py
+```
+
+O programa solicitará o arquivo de log a ser analisado e apresentará os resultados no terminal.
+
+## Exemplo de resultado
+
+```text
+IP: 192.168.1.10
+Tentativas falhas: 37
+
+IP: 10.0.0.15
+Tentativas falhas: 21
+
+IP: 172.16.0.8
+Tentativas falhas: 14
+```
+
+O resultado também pode ser exportado para um relatório `.txt` ou `.csv`.
+
+## Objetivo de aprendiza
